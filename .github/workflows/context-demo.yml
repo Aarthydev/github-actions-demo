@@ -1,21 +1,16 @@
-name: Context and Expression Demo
+name: Greeting on variable day
 
 on:
   workflow_dispatch
 
+env:
+  DAY_OF_WEEK: Monday
+
 jobs:
-  display-context:
+  greeting_job:
     runs-on: ubuntu-latest
+    env:
+      Greeting: Hello
     steps:
-      - name: Show branch name using context
-        run: echo "Running on branch ${{ github.ref }}"
-
-      - name: Show actor who triggered the workflow
-        run: echo "Triggered by ${{ github.actor }}"
-
-      - name: Conditional step (main branch only)
-        if: github.ref == 'refs/heads/main'
-        run: echo "This step runs only on the main branch"
-
-      - name: Using literal and operator
-        run: echo "Boolean value check: ${{ true && true }}"
+      - name: "Say Hello"
+        run: echo "$Greeting, today is $DAY_OF_WEEK!"
